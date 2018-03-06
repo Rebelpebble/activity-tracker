@@ -1,45 +1,36 @@
 const http = require('http')
 const url = require('url')
-const bs3 = require('better-sqlite3')
-//const sqlite3 = require('sqlite3')
+const sqlite3 = require('sqlite3')
 
-const database = new bs3('activitiesDB.db')
-console.log("Successfully opened the database.")
-
-const query = database.prepare('SELECT * FROM activity;')
-const queryResults = query.all()
-console.log(queryResults)
-
-
-/*
 const myActivities = new sqlite3.Database("activitiesDB.db")
 console.log("Successfully opened the database.")
 
-myActivities.all("SELECT * FROM activity;", function(err, rows) {
-  if (err) {
-    console.log(err)
-  }
+function getActivities(req, res) {
+  myActivities.all("SELECT * FROM activity;", (err, rows) => {
+    if (err) {
+      res.statusCode = 500
+      res.end('Database error.')
+    }
 
-  query = JSON.stringify(rows)
-})
-*/
+    res.end(JSON.stringify(rows))
+  })
+}
 
-//const serverContent = [{"id" : 1, "name" : "Program"}, {"id" : 2, "name" : "Guitar"}]
-
-const server = http.createServer(function(req,res){
+const server = http.createServer((req, res) => {
   const pathname = url.parse(req.url).pathname
-  switch(pathname){
-      case '/hello':
-        res.end('Hello World')
-      break
+  switch (pathname) {
+    case '/hello':
+      res.end('Hello World')
+    break
 
-      case '/item':
-        res.end(JSON.stringify(queryResults))
-      break
+    case '/activities':
+      getActivities(req, res)
+    break
 
-      default:
-        res.end('Default')
-      break
+    default:
+      res.statusCode = 404
+      res.end('Page not found.')
+    break
   }
 
 }).listen(8080)
