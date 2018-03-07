@@ -33,10 +33,16 @@ const server = http.createServer((req, res) => {
           return
         }
 
+        // Serves the data in the html file to the client as plain text, and the browser, by default,
+        // will interpret the text as html.
+        // Note, with only this case, the server does not have access to the app.js file that is referenced
+        // in the html file. See below.
         res.end(contents)
       })
     break
 
+    // The html file will actually go looking for the app.js file by sending an additional request to the server.
+    // This additional request has a path name which we handle below.
     case '/app.js':
       fs.readFile('./client/app.js', 'utf8', function(err, contents) {
         if (err) {
@@ -45,7 +51,7 @@ const server = http.createServer((req, res) => {
           return
         }
 
-        res.end(contents)
+        res.end(contents) // Serves the .js file so that it can be used by the front end.
       })
     break
 
