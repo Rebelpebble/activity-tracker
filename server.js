@@ -18,15 +18,35 @@ function getActivities(req, res) {
   })
 }
 
+function addActivity(req, res) {
+  // TODO Learn how this works.
+  const body = [];
+  req.on('data', (chunk) => {
+    body.push(chunk);
+  }).on('end', () => {
+    const json = Buffer.concat(body).toString();
+    // at this point, `body` has the entire request body stored in it as a string
+
+    const activity = JSON.parse(json)
+    myActivities.run("INSERT INTO activity (name) VALUES (?);", activity.name, function() {
+      res.end()
+    })
+  });
+}
+
 const server = http.createServer((req, res) => {
   // First you create a URL object.
   // Then you parse the incoming url of the request sent in.
   // Then you set the path name to the pathname property of the URL object.
   const pathname = url.parse(req.url).pathname
   switch (pathname) {
-    
+
     case '/activities':
       getActivities(req, res)
+    break
+
+    case '/activities/new':
+      addActivity(req, res)
     break
 
     case '/':
