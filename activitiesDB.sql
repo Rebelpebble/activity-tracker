@@ -4,6 +4,7 @@ name text);
 
 INSERT INTO activity VALUES (1, "Program");
 INSERT INTO activity VALUES (2, "Guitar");
+INSERT INTO activity VALUES (3, "Game");
 
 CREATE TABLE timeCard (
 id integer PRIMARY KEY,

@@ -19,8 +19,12 @@ function getActivities(req, res) {
 }
 
 const server = http.createServer((req, res) => {
+  // First you create a URL object.
+  // Then you parse the incoming url of the request sent in.
+  // Then you set the path name to the pathname property of the URL object.
   const pathname = url.parse(req.url).pathname
   switch (pathname) {
+    
     case '/activities':
       getActivities(req, res)
     break
