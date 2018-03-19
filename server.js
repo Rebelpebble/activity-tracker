@@ -28,10 +28,22 @@ function addActivity(req, res) {
     // at this point, `body` has the entire request body stored in it as a string
 
     const activity = JSON.parse(json)
-    myActivities.run("INSERT INTO activity (name) VALUES (?);", activity.name, function() {
+    myActivities.run("INSERT INTO activity (name) VALUES (?);", activity.name, function(err) {
+      if (err.code === 'SQLITE_CONSTRAINT') {
+        res.statusCode = 400
+        res.end('Activity already exists in database.')
+        return
+      }
+
+      if (err) {
+        res.statusCode = 500
+        res.end('Database error.')
+        return
+      }
+
       res.end()
     })
-  });
+  })
 }
 
 const server = http.createServer((req, res) => {

@@ -1,6 +1,6 @@
 CREATE TABLE activity (
 id integer PRIMARY KEY AUTOINCREMENT,
-name text);
+name text UNIQUE);
 
 CREATE TABLE timeCard (
 id integer PRIMARY KEY AUTOINCREMENT,

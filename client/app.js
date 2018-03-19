@@ -45,8 +45,6 @@ function addActivity() {
 
     loadActivities()
   })
-
-
 }
 
 function httpGetJSON(url, callback) {
