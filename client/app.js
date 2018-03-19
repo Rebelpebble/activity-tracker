@@ -65,5 +65,6 @@ function httpPostJSON(url, body, callback) {
     callback()
   })
   req.open("POST", url)
+  req.setRequestHeader('Content-Type', 'application/json')
   req.send(bodyJSON)
 }
