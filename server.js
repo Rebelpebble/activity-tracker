@@ -20,6 +20,7 @@ app.get('/activities', function (req, res) {
 
 app.post('/activities/new', function (req, res) {
   const activity = req.body
+
   myActivities.run("INSERT INTO activity (name) VALUES (?);", activity.name, function(err) {
 
     if (err) {
@@ -37,4 +38,9 @@ app.post('/activities/new', function (req, res) {
 })
 
 app.use(express.static('client'))
+
+app.get('*', (req, res) => {
+  res.status(404).end('Not Found.')
+})
+
 app.listen(8080)

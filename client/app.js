@@ -1,70 +1,46 @@
-window.onload = function() {
-  loadActivities()
-}
+$(document).ready(function(){
+   loadActivities()
+})
 
 function renderActivities(activities) {
-  const activitiesElement = document.getElementById('activities') // This is the <ul> from html
-  activitiesElement.innerHTML = ""
+  const activitiesElement = $('#activities')
+  activitiesElement.html('')
 
   activities.forEach(activity => {
-    const newElement = document.createElement('li') // Creeates generic <li> </li> floating in space, not attached to anything.
-    newElement.innerText = activity.name // <li>Some Name</li> Inserts the name from myActvities as the inner text.
-    activitiesElement.appendChild(newElement) // Appends the list item to the <ul>
+    const listItem = $('<li></li>').append(activity.name)
+    activitiesElement.append(listItem)
   })
 }
 
 function loadActivities() {
-  httpGetJSON("/activities", function(err, data) {
-    if (err) {
-      // TODO Show error to user.
-      console.log("Error accessing database.")
-      return
-    }
-
-    renderActivities(data)
-  })
+  $.get('/activities')
+    .done(activities => {
+      renderActivities(activities)
+    })
+    .fail(xhr => {
+      // TODO Come up with a message to the user.
+      console.log('Error loading activities.', xhr.responseText)
+    })
 }
 
 function addActivity() {
-  // Get button text
-  // Request current activities
-  // Check if the activity is in the database already
-  // Do POST request to http server
-  // Rerender activities list
-  const activityNameInputElement = document.getElementById('activityNameInput')
+  const activityNameInputElement = $('#activityNameInput')
   const newActivity = {
-    name: activityNameInputElement.value // Text from input element
+    name: activityNameInputElement.val(),
   }
 
-  httpPostJSON("/activities/new", newActivity, function(err) {
-    if (err) {
-      // TODO Show error to user.
-      console.log("Error writing to database.")
-      return
+  $.post({
+    url: '/activities/new',
+    data: JSON.stringify(newActivity),
+    headers: {
+      'content-type': 'application/json'
     }
-
-    loadActivities()
   })
-}
-
-function httpGetJSON(url, callback) {
-  const req = new XMLHttpRequest()
-  req.addEventListener("load", function () {
-    const json = this.responseText
-    const data = JSON.parse(json)
-    callback(null, data)
-  })
-  req.open("GET", url)
-  req.send()
-}
-
-function httpPostJSON(url, body, callback) {
-  const bodyJSON = JSON.stringify(body) // JSON object of activity
-  const req = new XMLHttpRequest()
-  req.addEventListener("load", function () {
-    callback()
-  })
-  req.open("POST", url)
-  req.setRequestHeader('Content-Type', 'application/json')
-  req.send(bodyJSON)
+    .done(() => {
+      loadActivities()
+    })
+    .fail(xhr => {
+      // TODO Come up with a message to the user.
+      console.log('Error sending data to server.', xhr.responseText)
+    })
 }
