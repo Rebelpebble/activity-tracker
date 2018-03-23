@@ -10,19 +10,19 @@
     <form>
       <div>
           <label for="activity">Activity:</label>
-          <input type="text" id="activity" name="activity">
+          <select id="dropDown" name="activityId"></select>
       </div>
       <div>
           <label for="date">Date:</label>
-          <input type="date" id="date" name="date">
+          <input type="date" name="date" value="2018-03-23">
       </div>
       <div>
           <label for="duration">Duration:</label>
-          <input type="number" id="duration" name="duration">
+          <input type="number" name="duration" value="30">
       </div>
       <div>
           <label for="description">Description:</label>
-          <input type="text" id="description" name="description">
+          <input type="text" name="description" value="Played a new song.">
       </div>
     </form>
     <input type="button" onclick="submitTime()" value="Post Time">

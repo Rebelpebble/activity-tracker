@@ -9,9 +9,9 @@ DROP TABLE IF EXISTS timeCard;
 
 CREATE TABLE timeCard (
   id integer PRIMARY KEY AUTOINCREMENT,
-  activity_id integer,
-  activity_date text,
-  duration integer,
+  activity_id integer NOT NULL,
+  activity_date text NOT NULL,
+  duration integer NOT NULL,
   description text,
   FOREIGN KEY (activity_id) REFERENCES activity (id)
   ON DELETE CASCADE ON UPDATE NO ACTION
