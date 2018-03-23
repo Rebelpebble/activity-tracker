@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>My Time</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" crossorigin="anonymous"></script>
+    <script src="postTime.js"></script>
+  </head>
+  <body>
+    <form>
+      <div>
+          <label for="activity">Activity:</label>
+          <select id="dropDown" name="activityId"></select>
+      </div>
+      <div>
+          <label for="date">Date:</label>
+          <input type="date" name="date" value="2018-03-23">
+      </div>
+      <div>
+          <label for="duration">Duration:</label>
+          <input type="number" name="duration" value="30">
+      </div>
+      <div>
+          <label for="description">Description:</label>
+          <input type="text" name="description" value="Played a new song.">
+      </div>
+    </form>
+    <input type="button" onclick="submitTime()" value="Post Time">
+  </body>
+</html>
