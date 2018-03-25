@@ -9,7 +9,9 @@ const app = express()
 app.use(express.json()) // Adds middleware to express that will automatically parse JSON bodies. No longer required to parse the body from the JSON format sent by the front end.
 
 app.get('/activities', (req, res) => {
-  myActivities.all("SELECT * FROM activity;", (err, rows) => {
+  const query = 'SELECT * FROM activity ORDER BY name ASC;'
+
+  myActivities.all(query, (err, rows) => {
     if (err) {
       res.status(500).json({ message: 'Database error.', err })
       return
