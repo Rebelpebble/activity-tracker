@@ -70,10 +70,6 @@ app.post('/postTime', (req, res) => {
   })
 })
 
-app.get('/homepage', (req, res) => {
-  res.sendFile('client/index.html' , { root : __dirname });
-})
-
 app.use(express.static('client'))
 
 app.get('*', (req, res) => {
