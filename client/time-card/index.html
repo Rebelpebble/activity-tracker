@@ -18,20 +18,32 @@
       </div>
       <div>
           <label for="date">Date:</label>
-          <input type="date" name="date" value="2018-03-23">
+          <input type="date" name="date" class="todaysDate">
       </div>
       <div>
           <label for="duration">Duration:</label>
-          <input type="number" name="duration" value="30">
+          <input type="number" name="duration">
       </div>
       <div>
           <label for="description">Description:</label>
-          <input type="text" name="description" value="Played a new song.">
+          <input type="text" name="description" value="Put description here.">
       </div>
     </form>
     <input type="button" onclick="submitTime()" value="Post Time">
     <br />
     <br />
+    <p><b>Display Time Cards by Date</b></p>
+    <div>
+        <label for="date">Start Date:</label>
+        <input type="date" name="date" class="firstOfThisYear">
+    </div>
+    <div>
+        <label for="date">End Date:</label>
+        <input type="date" name="date" class="todaysDate">
+    </div>
+    <input type="button" onclick="newDates()" value="Update Table">
+    <br  />
+    <br  />
     <table id="timeCardTable" border="1">
       <tr>
         <th>Activity</th>

@@ -1,5 +1,6 @@
 $(document).ready(function(){
    populateDropDown()
+   populateDates()
    createTimeCardTable()
 })
 
@@ -38,7 +39,6 @@ function populateDropDown() {
 
   $.get('/activities')
     .done(activities => {
-      console.log(activities)
       activities.sort().forEach(activity => {
         const dropDownItem = $('<option></option>').append(activity.name)
         dropDownItem.val(activity.id)
@@ -71,4 +71,29 @@ function createTimeCardTable() {
     .fail(xhr => {
       console.log('Error loading time cards.', xhr.responseText)
     })
+}
+
+function newDates() {
+
+}
+
+function populateDates() {
+  const today = new Date()
+  let dd = today.getDate()
+  let mm = today.getMonth() + 1
+  const yyyy = today.getFullYear()
+
+  if (dd < 10) {
+    dd = '0' + dd
+  }
+
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+
+  const todayDate =  yyyy + '-' + mm + '-' + dd
+  $('.todaysDate').val(todayDate)
+
+  const firstOfThisYear = yyyy + '-' + '01' + '-' + '01'
+  $('.firstOfThisYear').val(firstOfThisYear)
 }
