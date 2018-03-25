@@ -106,6 +106,6 @@ function populateDates() {
   const todayDate =  yyyy + '-' + mm + '-' + dd
   $('.todaysDate').val(todayDate)
 
-  const firstOfThisYear = yyyy + '-' + '01' + '-' + '01'
+  const firstOfThisYear = yyyy + '-' + mm + '-' + '01'
   $('.firstOfThisYear').val(firstOfThisYear)
 }

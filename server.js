@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3')
 const express = require('express')
+const path = require('path')
 
 const myActivities = new sqlite3.Database("activitiesDB.db")
 console.log("Successfully opened the database.")
@@ -67,6 +68,10 @@ app.post('/postTime', (req, res) => {
 
     res.end()
   })
+})
+
+app.get('/homepage', (req, res) => {
+  res.sendFile('client/index.html' , { root : __dirname });
 })
 
 app.use(express.static('client'))
