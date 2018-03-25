@@ -103,9 +103,10 @@ function populateDates() {
     mm = '0' + mm
   }
 
-  const todayDate =  yyyy + '-' + mm + '-' + dd
-  $('.todaysDate').val(todayDate)
-
   const firstOfThisYear = yyyy + '-' + mm + '-' + '01'
-  $('.firstOfThisYear').val(firstOfThisYear)
+  $('.startDate').val(firstOfThisYear)
+
+  const todayDate =  yyyy + '-' + mm + '-' + dd
+  $('.endDate').val(todayDate)
+  $('.timeCardDate').val(todayDate)
 }
