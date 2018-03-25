@@ -21,8 +21,11 @@
           <input type="date" name="date" class="todaysDate">
       </div>
       <div>
-          <label for="duration">Duration:</label>
-          <input type="number" name="duration">
+          <label for="durationHours">Duration (Hours):</label>
+          <input type="number" name="durationHours" id="durationHours">
+
+          <label for="durationMinutes">Duration (Minutes):</label>
+          <input type="number" name="durationMinutes" id="durationMinutes">
       </div>
       <div>
           <label for="description">Description:</label>
@@ -48,7 +51,7 @@
       <tr>
         <th>Activity</th>
         <th>Date</th>
-        <th>Duration</th>
+        <th>Duration (Minutes)</th>
         <th>Description</th>
       </tr>
     </table>

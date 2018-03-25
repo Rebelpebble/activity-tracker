@@ -12,11 +12,15 @@ function submitTime() {
     timeCardRaw[item.name] = item.value
   })
 
+  delete timeCardRaw.durationHours
+  delete timeCardRaw.durationMinutes
+
+  timeCardRaw.duration = calculateMinutes()
+
   // Copies timeCardRaw, then overides the values for activityId and duration in the new timeCard object
   const timeCard = {
     ...timeCardRaw,
     activityId: parseInt(timeCardRaw.activityId),
-    duration: parseInt(timeCardRaw.duration)
   }
 
   $.post({
@@ -71,6 +75,14 @@ function createTimeCardTable() {
     .fail(xhr => {
       console.log('Error loading time cards.', xhr.responseText)
     })
+}
+
+function calculateMinutes() {
+  const hours = $('#durationHours').val()
+  const minutes = $('#durationMinutes').val()
+  const totalMinutes = parseInt(hours) * 60 + parseInt(minutes)
+
+  return totalMinutes
 }
 
 function newDates() {
