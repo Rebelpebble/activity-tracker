@@ -5,10 +5,27 @@ const myActivities = new sqlite3.Database("activitiesDB.db")
 console.log("Successfully opened the database.")
 
 const app = express()
+
 app.use(express.json()) // Adds middleware to express that will automatically parse JSON bodies. No longer required to parse the body from the JSON format sent by the front end.
 
 app.get('/activities', (req, res) => {
   myActivities.all("SELECT * FROM activity;", (err, rows) => {
+    if (err) {
+      res.status(500).json({ message: 'Database error.', err })
+      return
+    }
+
+    res.json(rows)
+  })
+})
+
+app.get('/timeCards', (req, res) => {
+  const query = `SELECT activity.name, timeCard.activity_date, timeCard.duration, timeCard.description
+  FROM timeCard
+  INNER JOIN activity
+  ON timeCard.activity_id = activity.id;`
+
+  myActivities.all(query, (err, rows) => {
     if (err) {
       res.status(500).json({ message: 'Database error.', err })
       return
