@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>My Activities</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.js" crossorigin="anonymous"></script>
-    <script src="app.js"></script>
+    <title>Activity Tracker</title>
   </head>
   <body>
-    <p>Input new activity below:</p>
-    <input id="activityNameInput" type="text">
-    <button onclick="addActivity()">Submit</button>
-    <ul id="activities"></ul>
+    <h1>Track Your Time With Activity Tracker</h1>
+
+    <form action="/activity/index.html">
+      <input type="submit" value="Add Activity" />
+    </form>
+
+    <br />
+    
+    <form action="/time-card/index.html">
+      <input type="submit" value="Add Time Card" />
+    </form>
   </body>
 </html>

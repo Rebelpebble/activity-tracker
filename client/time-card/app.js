@@ -59,7 +59,7 @@ function createTimeCardTable() {
         const newRow = $('<tr></tr>') // Create new html row.
 
         for (var property in row) {
-          const newCell = $('<th></th>') // Create empty html cell
+          const newCell = $('<td></td>') // Create empty html cell
           newCell.append(row[property]) // Insert cell-value into html cell
           newRow.append(newCell) // Insert html cell into html row
         }
