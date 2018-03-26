@@ -31,7 +31,7 @@ function submitTime() {
     }
   })
     .done(() => {
-      location.reload()
+      createTimeCardTable()
     })
     .fail((xhr) => {
       console.log('Error sending data to server.', xhr.responseText)
@@ -57,9 +57,12 @@ function populateDropDown() {
 function createTimeCardTable() {
   $.get('/timeCards')
     .done(timeCards => {
-      const timeCardTable = $('#timeCardTable')
+      const filteredTimeCards = filterByDate(timeCards)
 
-      timeCards.reverse().forEach( row => {
+      const timeCardTableBody = $('#timeCardTable > tbody')
+      timeCardTableBody.html('')
+
+      filteredTimeCards.reverse().forEach( row => {
         const newRow = $('<tr></tr>') // Create new html row.
 
         for (var property in row) {
@@ -68,7 +71,7 @@ function createTimeCardTable() {
           newRow.append(newCell) // Insert html cell into html row
         }
 
-        timeCardTable.append(newRow) // Insert html row into table.
+        timeCardTableBody.append(newRow) // Insert html row into table.
       })
 
     })
@@ -85,9 +88,19 @@ function calculateMinutes() {
   return totalMinutes
 }
 
-function newDates() {
+function filterByDate(timeCards) {
+  const startDate = $('.startDate').val()
+  const endDate = $('.endDate').val()
 
+  // Activity, Date, Duration, Description
+  const filteredTimeCards = timeCards.filter(timeCard => {
+    const activityDate = timeCard.activity_date
+    return activityDate <= endDate && activityDate >= startDate
+  })
+
+  return filteredTimeCards
 }
+
 
 function populateDates() {
   const today = new Date()

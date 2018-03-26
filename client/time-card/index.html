@@ -35,22 +35,25 @@
     <p><b>Display Time Cards by Date</b></p>
     <div>
         <label for="date">Start Date:</label>
-        <input type="date" name="date" class="firstOfThisYear">
+        <input type="date" name="date" class="startDate">
     </div>
     <div>
         <label for="date">End Date:</label>
-        <input type="date" name="date" class="todaysDate">
+        <input type="date" name="date" class="endDate">
     </div>
-    <input type="button" onclick="newDates()" value="Update Table">
+    <input type="button" onclick="createTimeCardTable()" value="Update Table">
     <br  />
     <br  />
     <table id="timeCardTable" border="1">
-      <tr>
-        <th>Activity</th>
-        <th>Date</th>
-        <th>Duration (Minutes)</th>
-        <th>Description</th>
-      </tr>
+      <thead>
+        <tr>
+          <th>Activity</th>
+          <th>Date</th>
+          <th>Duration (Minutes)</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
   </body>
 </html>
