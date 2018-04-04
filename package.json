@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "better-sqlite3": "^4.1.0",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
     "sqlite3": "^3.1.13",
     "uuid": "^3.2.1"

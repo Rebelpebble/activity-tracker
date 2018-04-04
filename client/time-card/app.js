@@ -83,7 +83,7 @@ function createTimeCardTable() {
 function calculateMinutes() {
   const hours = $('#durationHours').val()
   const minutes = $('#durationMinutes').val()
-  const totalMinutes = parseInt(hours) * 60 + parseInt(minutes)
+  const totalMinutes = (parseInt(hours) || 0) * 60 + (parseInt(minutes) || 0)
 
   return totalMinutes
 }
