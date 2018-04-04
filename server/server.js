@@ -13,9 +13,14 @@ const app = express()
 
 app.use(express.json()) // Adds middleware to express that will automatically parse JSON bodies. No longer required to parse the body from the JSON format sent by the front end.
 app.use(cookieParser())
+
+app.use(express.static('../client'))
+
 sessionRoutes(app, db)
 
-app.get('/activities', sessionCheckMiddleware(db, (req, res) => {
+app.use(sessionCheckMiddleware(db))
+
+app.get('/activities', (req, res) => {
   const query = 'SELECT * FROM activity WHERE user_id = ? ORDER BY name ASC;'
 
   db.all(query, req.currentUserId, (err, rows) => {
@@ -26,9 +31,9 @@ app.get('/activities', sessionCheckMiddleware(db, (req, res) => {
 
     res.json(rows)
   })
-}))
+})
 
-app.get('/timeCards', sessionCheckMiddleware(db, (req, res) => {
+app.get('/timeCards', (req, res) => {
   const query = `SELECT activity.name, timeCard.activity_date, timeCard.duration, timeCard.description
   FROM timeCard
   INNER JOIN activity
@@ -43,9 +48,9 @@ app.get('/timeCards', sessionCheckMiddleware(db, (req, res) => {
 
     res.json(rows)
   })
-}))
+})
 
-app.post('/activities/new', sessionCheckMiddleware(db, (req, res) => {
+app.post('/activities/new', (req, res) => {
   const activity = req.body
 
   db.run("INSERT INTO activity (user_id, name) VALUES (?, ?);", req.currentUserId, activity.name, err => {
@@ -61,24 +66,21 @@ app.post('/activities/new', sessionCheckMiddleware(db, (req, res) => {
 
     res.end()
   })
-}))
+})
 
-app.post('/postTime', sessionCheckMiddleware(db, (req, res) => {
+app.post('/postTime', (req, res) => {
   const timeCard = req.body
   const query = "INSERT INTO timeCard (user_id, activity_id, activity_date, duration, description) VALUES (?, ?, ?, ?, ?)"
 
   db.run(query, req.currentUserId, timeCard.activityId, timeCard.date, timeCard.duration, timeCard.description, err => {
     if (err) {
-      console.log(err)
       res.status(500).json({ message: 'Database error.', err })
       return
     }
 
     res.end()
   })
-}))
-
-app.use(express.static('../client'))
+})
 
 app.get('*', (req, res) => {
   res.status(404).end('Not Found.')

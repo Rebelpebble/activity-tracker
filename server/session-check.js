@@ -1,5 +1,5 @@
-function sessionCheckMiddleware(db, next) { // middleware created to check if a user has a session open (i.e. logged in)
-  return (req, res) => {
+function sessionCheckMiddleware(db) { // middleware created to check if a user has a session open (i.e. logged in)
+  return (req, res, next) => {
     if (!req.cookies.session) { // checks if there is a cookie in the header, if not, the no user could be logged in
       res.status(401).end('Session cookie is required.')
       return
@@ -20,7 +20,7 @@ function sessionCheckMiddleware(db, next) { // middleware created to check if a 
       }
 
       req.currentUserId = rows[0].user_id // sets a header with the property currentUserId using the results of the query against the token from the browser
-      next(req, res) // the user is validated by the backend that they are logged in, and they have the currentUserId available in a header to be used by the front end
+      next() // the user is validated by the backend that they are logged in, and they have the currentUserId available in a header to be used by the front end
     })
   }
 }
