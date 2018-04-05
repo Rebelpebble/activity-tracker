@@ -82,6 +82,18 @@ app.post('/postTime', (req, res) => {
   })
 })
 
+app.get('/logout', (req, res) => {
+  const query = `DELETE FROM session WHERE user_id = ?`
+
+  db.run(query, req.currentUserId, (err) => {
+    if (err) {
+      res.status(500).json({ message: 'Database error.', err })
+    }
+  })
+
+  res.end()
+})
+
 app.get('*', (req, res) => {
   res.status(404).end('Not Found.')
 })

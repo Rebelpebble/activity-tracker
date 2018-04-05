@@ -18,9 +18,19 @@ function submitCredentials() {
     }
   })
     .done(() => {
-      // TODO: What do?
+      document.location.replace('/');
     })
     .fail((xhr) => {
       console.log('Error sending data to server.', xhr.responseText)
+    })
+}
+
+function logout() {
+  $.get('/logout')
+    .done(
+      document.location.replace('/login.html')
+    )
+    .fail(xhr => {
+      console.log('Error logging out.', xhr.responseText)
     })
 }
