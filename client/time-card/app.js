@@ -24,7 +24,7 @@ function submitTime() {
   }
 
   $.post({
-    url: '/postTime',
+    url: '/time-cards',
     data: JSON.stringify(timeCard),
     headers: {
       'content-type': 'application/json'
@@ -55,7 +55,7 @@ function populateDropDown() {
 }
 
 function createTimeCardTable() {
-  $.get('/timeCards')
+  $.get('/time-cards')
     .done(timeCards => {
       const filteredTimeCards = filterByDate(timeCards)
 

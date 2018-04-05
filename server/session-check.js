@@ -1,4 +1,4 @@
-function sessionCheckMiddleware(db) { // middleware created to check if a user has a session open (i.e. logged in)
+function buildSessionCheckMiddleware(db) { // middleware created to check if a user has a session open (i.e. logged in)
   return (req, res, next) => {
     if (!req.cookies.session) { // checks if there is a cookie in the header, if not, the no user could be logged in
       res.status(401).end('Session cookie is required.')
@@ -26,5 +26,5 @@ function sessionCheckMiddleware(db) { // middleware created to check if a user h
 }
 
 module.exports = {
-  sessionCheckMiddleware
+  buildSessionCheckMiddleware
 }

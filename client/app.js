@@ -1,7 +1,3 @@
-$(document).ready(function(){
-
-})
-
 function submitCredentials() {
   const credentials = $('form').serializeArray()
   const credentialsRaw = {}
@@ -11,7 +7,7 @@ function submitCredentials() {
   })
 
   $.post({
-    url: '/session',
+    url: '/sessions',
     data: JSON.stringify(credentialsRaw),
     headers: {
       'content-type': 'application/json'

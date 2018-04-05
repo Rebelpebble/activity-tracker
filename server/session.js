@@ -1,7 +1,10 @@
 const generateUUID = require('uuid/v4')
+const express = require('express')
 
-function sessionRoutes(app, db) {
-  app.post('/session', (req, res) => {
+function buildSessionsRouter(db) {
+  const router = express.Router()
+
+  router.post('/sessions', (req, res) => {
     const user = req.body // the user posts (username, password) from the front end upon login
     const query = `SELECT * FROM user WHERE username = ?` // query created to select user from user table to find its associated password in the database
 
@@ -32,6 +35,8 @@ function sessionRoutes(app, db) {
       })
     })
   })
+
+  return router
 }
 
 function createSession(userId, db, callback) {
@@ -48,5 +53,5 @@ function createSession(userId, db, callback) {
 }
 
 module.exports = {
-  sessionRoutes
+  buildSessionsRouter
 }

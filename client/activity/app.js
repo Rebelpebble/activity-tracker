@@ -30,7 +30,7 @@ function addActivity() {
   }
 
   $.post({
-    url: '/activities/new',
+    url: '/activities',
     data: JSON.stringify(newActivity),
     headers: {
       'content-type': 'application/json'
